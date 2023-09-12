@@ -1,0 +1,146 @@
+<%- include('includes/head') %>
+    <header>
+        <%- include('includes/header_top'); %>
+            <%- include('includes/header_nav'); %>
+    </header>
+
+    <body>
+        <div id="page" class="site page-category">
+            <div id="page" class="site">
+                <aside class="site-off desktop-hide">
+                    <div class="off-canvas">
+                        <div class="canvas-head">
+                            <div class="logo">
+                                <a href="/"><span class="circle"></span>GOG</a>
+                            </div>
+                            <a href="#" class="t-close flexcenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="departments"></div>
+                        <nav></nav>
+                        <div class="thetop-nav"></div>
+                    </div>
+                </aside>
+                <header>
+
+                </header>
+                <main>
+
+                    <div class="single-cart">
+                        <div class="container">
+                            <div class="wrapper">
+                                <div class="page-title">
+                                    <h1>WishList</h1>
+                                </div>
+                                <div class="products one cart" id="#totalss">
+                                    <div class="flexwrap">
+                                        <form action="" class="form-cart">
+                                            <div class="item">
+                                                <table id="cart-table">
+                                                    <% if(!wishlistitems){ %>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>No wishlist items</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <% }else{ %>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Item</th>
+                                                                    <th>Price</th>
+                                                                    <th></th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <% for(let i=0; i<wishlistitems.length; i++){ %>
+                                                                    <tr>
+                                                                        <td class="flexitem">
+                                                                            <div class="thumbnail object-cover">
+                                                                                <a href="#">
+                                                                                    <img src="/<%= wishlistitems[i].imagePath %>"
+                                                                                        alt="">
+                                                                                </a>
+                                                                            </div>
+                                                                            <div class="content"><strong><a href="#">
+                                                                                        <%= wishlistitems[i].title%>
+                                                                                    </a></strong>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= wishlistitems[i].price %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a class="add-to-cart-button"
+                                                                                data-product-id="<%= wishlistitems[i].productId %>">
+                                                                                <input type="button"
+                                                                                    value="Add to Cart">
+                                                                            </a>
+                                                                        </td>
+                                                                        <td><a href="/reduce-wishlist/<%= wishlistitems[i]._id%>"
+                                                                                class="item-remove">
+                                                                                <input type="button" value="Remove"></a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <% } %>
+                                                            </tbody>
+                                                            <% } %>
+                                                </table>
+
+                                            </div>
+                                        </form><br><br>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </main><br><br><br>
+                <%- include('includes/footer', categories) %>
+            </div>
+            <script>
+                // JavaScript code to send an AJAX GET request when clicking the "Add to Cart" button using XMLHttpRequest
+                document.addEventListener('DOMContentLoaded', function () {
+                    const addToCartButtons = document.querySelectorAll('.add-to-cart-button');
+
+                    addToCartButtons.forEach(button => {
+                        button.addEventListener('click', function (event) {
+                            event.preventDefault();
+
+                            const productId = button.getAttribute('data-product-id');
+
+                            // Send an AJAX GET request to the server to add the product to the cart
+                            const xhr = new XMLHttpRequest();
+
+                            // Define the request
+                            xhr.open('GET', `/add-to-cart/${productId}`, true);
+                            xhr.setRequestHeader('Content-Type', 'application/json');
+                            xhr.setRequestHeader('Accept', 'application/json');
+
+                            // Set up the event listener for when the request is complete
+                            xhr.onload = function () {
+                                if (xhr.status === 200) {
+                                    const data = JSON.parse(xhr.responseText);
+                                    if (data.success) {
+                                        // Handle success (e.g., update the UI)
+                                        alert(data.message);
+                                    } else {
+                                        // Handle errors (e.g., display an error message)
+                                        alert(data.message);
+                                    }
+                                } else {
+                                    console.error('Error:', xhr.status);
+                                }
+                            };
+
+                            // Send the request
+                            xhr.send();
+                        });
+                    });
+                });
+
+            </script>
+    </body>
+
+    </html>

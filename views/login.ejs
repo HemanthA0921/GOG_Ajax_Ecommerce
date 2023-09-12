@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>GOG | <%= title %>
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <section>
+        <div class="container">
+            <div class="user signinBx">
+                <div class="formBx">
+                    <form name="validatelogin" method="POST" action="/login" onsubmit="return formvalidate()">
+                        <h2>Sign In</h2>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Email" onblur="validateEmail1()">
+                        <div id="emailValidationResult1" class="validation-result1"></div>
+                        <br>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Password"
+                            onblur="validatePassword1()">
+                        <div id="passwordValidationResult1" class="validation-result1"></div>
+                        <br>
+                        <input type="submit" value="Submit" class="button">
+                        <p class="signup">
+                            Don't have an account ?
+                            <a onclick="toggleForm();">Sign Up.</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+            <div class="user signupBx">
+                <div class="formBx">
+                    <form name="validate" method="POST" action="/register" onsubmit="return validateform();">
+                        <label for="namer">Name</label>
+                        <input type="text" id="namer" name="namer" placeholder="Username" onblur="validateName()">
+                        <div id="nameValidationResult" class="validation-result"></div>
+                        <br>
+                        <label for="emailr">Email</label>
+                        <input type="email" id="emailr" name="emailr" placeholder="Email" onblur="validateEmail()">
+                        <div id="emailValidationResult" class="validation-result"></div>
+                        <br>
+                        <label for="passwordr">Password</label>
+                        <input type="password" id="passwordr" name="passwordr" placeholder="Password"
+                            onblur="validatePassword()">
+                        <div id="passwordValidationResult" class="validation-result"></div>
+                        <br>
+                        <label for="cpasswordr">Confirm password</label>
+                        <input type="password" id="cpasswordr" name="cpasswordr" placeholder="Confirm Password"
+                            onblur="validateConfirmPassword()">
+                        <div id="cpasswordValidationResult" class="validation-result"></div>
+                        <br>
+                        <input type="submit" value="Submit" class="button">
+                        <p class="signup">
+                            Already have an account?
+                            <a onclick="toggleForm();">Login.</a>
+                        </p>
+                    </form>
+
+                </div>
+            </div>
+            <div class="imgBx"><img
+                    src="https://thumbs.dreamstime.com/b/many-used-modern-electronic-gadgets-use-white-floor-reuse-recycle-concept-top-view-164230611.jpg"
+                    alt=""></div>
+        </div>
+        </div>
+    </section>
+    <script>
+        const toggleForm = () => {
+            const container = document.querySelector('.container');
+            container.classList.toggle('active');
+        };
+
+        
+        function validateEmail1() {
+            const email = document.getElementById('email').value;
+            const emailValidationResult = document.getElementById('emailValidationResult1');
+            const eCheck = /^\S+@[a-z]+\.[a-z]{3}$/;
+
+            if (email.trim() === '') {
+                emailValidationResult.innerHTML = '<span style="color: red;">Email cannot be empty.</span>';
+                return;
+            }
+
+            if (!eCheck.test(email)) {
+                emailValidationResult.innerHTML = '<span style="color: red;">Please enter a valid email address.</span>';
+                return;
+            }
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/check-login-email', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    const data = JSON.parse(xhr.responseText);
+
+                    if (data.isValidEmail) {
+                        emailValidationResult.innerHTML = '';
+                    } else {
+                        emailValidationResult.innerHTML = '<span style="color: red;">Invalid email address.</span>';
+                    }
+                } else {
+                    console.error('Request failed:', xhr.status, xhr.statusText);
+                }
+            };
+
+            xhr.send(JSON.stringify({ email: email }));
+        }
+
+
+        function validatePassword1() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const passwordValidationResult = document.getElementById('passwordValidationResult1');
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/check-login-password', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    const data = JSON.parse(xhr.responseText);
+
+                    if (data.isPasswordValid) {
+                        passwordValidationResult.innerHTML = '<span style="color: green;">Validation Success</span>';
+                    } else {
+                        passwordValidationResult.innerHTML = '<span style="color: red;">Incorrect password.</span>';
+                    }
+                } else {
+                    console.error('Request failed:', xhr.status, xhr.statusText);
+                }
+            };
+
+            xhr.send(JSON.stringify({ email: email, password: password }));
+        }
+        function validateform() {
+            validateName();
+            validateEmail();
+            validatePassword();
+            validateConfirmPassword();
+
+            const errorDivs = document.querySelectorAll('.validation-error');
+            for (const errorDiv of errorDivs) {
+                if (errorDiv.textContent !== '') {
+                    return false;
+                }
+            }
+            alert('SignUp completed successfully');
+            return true;
+        }
+
+
+
+        function validateName() {
+            const name = document.getElementById('namer').value;
+            const nameValidationResult = document.getElementById('nameValidationResult');
+            if (name.trim().length < 3) {
+                nameValidationResult.innerHTML = '<span style="color: red;">Name should contain at least 3 characters.</span>';
+            } else {
+                nameValidationResult.innerHTML = '';
+            }
+        }
+
+
+        function validateEmail() {
+            const email = document.getElementById('emailr').value;
+            const emailValidationResult = document.getElementById('emailValidationResult');
+            const eCheck = /^\S+@[a-z]+\.[a-z]{3}$/;
+
+            if (email.trim() === '') {
+                emailValidationResult.innerHTML = '<span style="color: red;">Email cannot be empty.</span>';
+                return;
+            }
+
+            if (!eCheck.test(email)) {
+                emailValidationResult.innerHTML = '<span style="color: red;">Please enter a valid email address.</span>';
+                return;
+            }
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/check-email', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    const data = JSON.parse(xhr.responseText);
+
+                    if (data.isTaken) {
+                        emailValidationResult.innerHTML = '<span style="color: red;">Email is already taken.</span>';
+                    } else {
+                        emailValidationResult.innerHTML = '<span style="color: green;">Email is available.</span>';
+                    }
+                } else {
+                    console.error('Request failed:', xhr.status, xhr.statusText);
+                }
+            };
+
+            xhr.send(JSON.stringify({ email: email }));
+        }
+
+        function validatePassword() {
+            const password = document.getElementById('passwordr').value;
+            const passwordValidationResult = document.getElementById('passwordValidationResult');
+            if (password.trim() === '') {
+                passwordValidationResult.innerHTML = '<span style="color: red;">Password cannot be empty.</span>';
+                return;
+            }
+            if (password.length < 5 || password.length > 15) {
+                passwordValidationResult.innerHTML = '<span style="color: red;">Password should be 5 to 15 characters long.</span>';
+                return;
+            }
+            const digitRegex = /\d/;
+            const lowercaseRegex = /[a-z]/;
+            const uppercaseRegex = /[A-Z]/;
+            if (!digitRegex.test(password) || !lowercaseRegex.test(password) || !uppercaseRegex.test(password)) {
+                passwordValidationResult.innerHTML = '<span style="color: red;">Password must contain at least one digit, one lowercase letter, and one uppercase letter.</span>';
+                return;
+            }
+            passwordValidationResult.innerHTML = '';
+        }
+
+
+        function validateConfirmPassword() {
+            const password = document.getElementById('passwordr').value;
+            const cpassword = document.getElementById('cpasswordr').value;
+            const cpasswordValidationResult = document.getElementById('cpasswordValidationResult');
+            if (password !== cpassword) {
+                cpasswordValidationResult.innerHTML = '<span style="color: red;">Confirm password do not match.</span>';
+            } else {
+                cpasswordValidationResult.innerHTML = '';
+            }
+        }
+    </script>
+</body>
+
+</html>

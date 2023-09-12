@@ -1,0 +1,496 @@
+<%- include('includes/head') %>
+    <body>
+        <div id="page" class="site">
+            <aside class="site-off desktop-hide">
+                <div class="off-canvas">
+                    <div class="canvas-head">
+                        <div class="logo">
+                            <a href="/"><span class="circle"></span>GOG</a>
+                        </div>
+                        <a href="#" class="t-close flexcenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
+                    <div class="departments"></div>
+                    <nav></nav>
+                    <div class="thetop-nav"></div>
+                </div>
+            </aside>
+            <header>
+                <%- include('includes/header_top'); %>
+                    <%- include('includes/header_nav'); %>
+                        <%- include('includes/header_main'); %>
+            </header>
+
+
+            <main>
+                <!-- slider -->
+                <div class="slider">
+                    <div class="container">
+                        <div class="wrapper">
+                            <div class="carousel">
+                                <div class="carousel-slides">
+                                    <div class="carousel-slide active">
+                                        <img src="assets/slider/slider0.webp" alt="Image 1">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="assets/slider/slider1.webp" alt="Image 2">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="assets/slider/slider2.webp" alt="Image 3">
+                                    </div>
+                                </div>
+                                <a class="carousel-control prev">&#10094;</a>
+                                <a class="carousel-control next">&#10095;</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- slider -->
+
+                <!-- brands -->
+                <div class="brands">
+                    <div class="container">
+                        <div class="wrapper flexitem">
+                            <div class="item">
+                                <a href="#">
+                                    <img src="assets/brands/samsung.png" alt="">
+                                </a>
+                            </div>
+                            <div class="item">
+                                <a href="#">
+                                    <img src="assets/brands/oppo.png" alt="">
+                                </a>
+                            </div>
+                            <div class="item">
+                                <a href="#">
+                                    <img src="assets/brands/asus.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- trending products -->
+                <div id="trending" class="trending">
+                    <div class="container">
+                        <div class="wrapper">
+                            <div class="sectop flexitem">
+                                <h2><span class="circle"></span><span>Trending Products</span></h2>
+                                <div class="second-links">
+                                    <a href="/trendingproducts" class="view-all">View all
+                                        <i class="far fa-arrow-alt-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="flexwrap">
+                                    <!-- sale products -->
+                                    <div class="row products big">
+                                        <div class="item">
+                                            <div class="offer">
+                                                <p>Offer ends in:</p>
+                                                <ul class="flexcenter" id="countdown-timer">
+                                                    <li id="days">0</li>
+                                                    <li id="hours">0</li>
+                                                    <li id="minutes">0</li>
+                                                    <li id="seconds">0</li>
+                                                </ul>
+                                            </div>
+                                            <!-- ... (your existing sale product code) ... -->
+                                            <div class="media">
+                                                <div class="image">
+                                                    <a href="#">
+                                                        <img src="/images/mobiles/apple/ma10.webp" alt="">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="content">
+                                                <div class="rating">
+                                                    <div class="stars"></div>
+                                                    <span class="mini-text">308
+                                                    </span>
+                                                </div>
+                                                <h3 class="main-links">
+                                                    <a href="/products/641055d82b79b731a80f92c5/6442336d45318afadbd6b66c">
+                                                        Apple iPhone 14 Pro Max (256GB, Deep Purple)
+                                                    </a>
+                                                </h3>
+                                                <div class="price">
+                                                    <span class="current">INR.137990.00
+                                                    </span>
+                                                    <span class="normal mini-text">INR.149900.00
+                                                    </span>
+                                                </div>
+                                                <div class="stock mini-text">
+                                                    <div class="qty">
+                                                        <span>Stock: <strong class="qty-available">150
+                                                            </strong></span>
+                                                        <span>Sold: <strong class="qty-sold">73</strong></span>
+                                                    </div>
+                                                    <div class="bar">
+                                                        <div class="available">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                        </div>
+                                    </div>
+                                    <% for(let i=0; i<7; i++){ %>
+                                        <div class="row products mini">
+                                            <div class="item">
+                                                <div class="media">
+                                                    <div class="thumbnail object-cover">
+                                                        <a href="#trending">
+                                                            <img src="<%= products[i].imagePath %>" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="hoverable">
+                                                        <ul>
+                                                            <li class="wishlist-item" data-product-id="<%= products[i]._id %>">
+                                                                <a class="wishlist-link">
+                                                                    <i class="fa-regular fa-heart"></i>
+                                                                </a>
+                                                            </li>
+                                                            
+                                                            <li><a href="/products/<%=products[i].category%>/<%=products[i]._id%>"><i class="fa fa-eye"
+                                                                        aria-hidden="true"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-random"
+                                                                        aria-hidden="true"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="content">
+                                                    <h3 class="main-links"><a href="/products/<%=products[i].category%>/<%=products[i]._id%>">
+                                                            <%= products[i].title %>
+                                                        </a></h3>
+                                                    <div class="rating">
+                                                        <div class="stars"></div>
+                                                        <span class="mini-text">
+                                                            <%= products[i].reviewed %>
+                                                        </span>
+                                                    </div>
+                                                    <div class="price">
+                                                        <span class="current">INR.<%= products[i].price %></span>
+                                                        <span class="normal mini-text">INR.<%= products[i].mrp %></span>
+                                                    </div>
+                                                    <div class="main-text">
+                                                        <p>
+                                                            <%= products[i].sold %> sold
+                                                        </p>
+                                                        <p>Free Shipping</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <%} %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- trending products -->
+
+                <!-- Featured products -->
+                <div id="featuredproducts" class="features">
+                    <div class="container">
+                        <div class="wrapper">
+                            <div class="column">
+                            <div class="sectop flexitem">
+                                    <h2><span class="circle"></span><span>Featured Products</span></h2>
+                                    <div class="second-links">
+                                        <a href="/featuredproducts" class="view-all">View all
+                                            <i class="far fa-arrow-alt-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="products main flexwrap">
+                                    <% for(let i=0; i<6; i++){ %>
+                                        <div class="item">
+                                            <div class="media">
+                                                <div class="image object-cover">
+                                                    <a href="#featuredproducts">
+                                                        <img src="<%= products[i].imagePath %>" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="hoverable">
+                                                    <ul>
+                                                        <li class="wishlist-item" data-product-id="<%= products[i]._id %>">
+                                                            <a class="wishlist-link">
+                                                                <i class="fa-regular fa-heart"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li><a href="/products/<%=products[i].category %>/<%=products[i]._id%>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                        </li>
+                                                        <li><a href="#"><i class="fa fa-random"
+                                                                    aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="content">
+                                                <h3 class="main-links"><a href="/products/<%=products[i].category %>/<%=products[i]._id%>">
+                                                        <%= products[i].title %>
+                                                    </a>
+                                                </h3>
+                                                <div class="rating">
+                                                    <div class="stars"></div>
+                                                    <span class="mini-text">
+                                                        <%= products[i].reviewed %>
+                                                    </span>
+                                                </div>
+                                                <div class="price">
+                                                    <span class="current">INR.<%= products[i].price %></span>
+                                                    <span class="normal mini-text">INR.<%= products[i].mrp %></span>
+                                                </div>
+                                                <div class="footer">
+                                                    <ul class="mini-text">
+                                                        <li><%= products[i].features1 %></li>
+                                                        <li><%= products[i].features2 %></li>
+                                                        <li><%= products[i].features3 %></li>
+                                                        <li><%= products[i].features4 %></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% }; %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Featured products -->
+            </main>
+            <%- include('includes/footer'); %>
+        </div>
+        <script>
+             // Set the target date for the offer expiration
+        const targetDate = new Date('2023-09-15T23:59:59').getTime();
+
+        // Update the countdown every second
+        const timerInterval = setInterval(updateCountdown, 1000);
+
+        function updateCountdown() {
+            const currentDate = new Date().getTime();
+            const timeRemaining = targetDate - currentDate;
+
+            if (timeRemaining <= 0) {
+                clearInterval(timerInterval); // Stop the timer when the offer expires
+                document.getElementById('countdown-timer').innerHTML = '<p>Offer has ended</p>';
+                return;
+            }
+
+            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+            // Update the timer display
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+
+        // Initial update
+        updateCountdown();
+
+         function animateElement(element, delay) {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(100px)';
+
+        setTimeout(function () {
+            element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+        }, delay);
+    }
+
+    // Animate elements after the page loads
+    window.addEventListener('load', function () {
+        const slides = document.querySelectorAll('.carousel-slide');
+        slides.forEach(function (slide, index) {
+            animateElement(slide, index * 500); // Delay each slide animation
+        });
+
+        const brandItems = document.querySelectorAll('.brands .item');
+        brandItems.forEach(function (brandItem, index) {
+            animateElement(brandItem, index * 500); // Delay each brand item animation
+        });
+
+        const trendingProducts = document.querySelectorAll('.trending .item');
+        trendingProducts.forEach(function (product, index) {
+            animateElement(product, index * 500); // Delay each product animation
+        });
+
+        const featuredProducts = document.querySelectorAll('.features .item');
+        featuredProducts.forEach(function (product, index) {
+            animateElement(product, index * 500); // Delay each product animation
+        });
+    });
+
+    // slider
+const carousel = document.querySelector('.carousel');
+const slides = document.querySelector('.carousel-slides');
+const slideWidth = carousel.clientWidth;
+const prevBtn = document.querySelector('.prev');
+const nextBtn = document.querySelector('.next');
+let currentSlide = 0;
+
+// Set the initial position of the slides
+slides.style.transform = `translateX(-${slideWidth * currentSlide}px)`;
+
+// Go to the previous slide
+prevBtn.addEventListener('click', () => {
+    if (currentSlide === 0) {
+        currentSlide = slides.children.length - 1;
+    } else {
+        currentSlide--;
+    }
+    slides.style.transform = `translateX(-${slideWidth * currentSlide}px)`;
+});
+
+// Go to the next slide
+nextBtn.addEventListener('click', () => {
+    if (currentSlide === slides.children.length - 1) {
+        currentSlide = 0;
+    } else {
+        currentSlide++;
+    }
+    slides.style.transform = `translateX(-${slideWidth * currentSlide}px)`;
+});
+
+// Automatically advance to the next slide every 3 seconds
+setInterval(() => {
+    if (currentSlide === slides.children.length - 1) {
+        currentSlide = 0;
+    } else {
+        currentSlide++;
+    }
+    slides.style.transform = `translateX(-${slideWidth * currentSlide}px)`;
+}, 3000);
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const wishlistItems = document.querySelectorAll('.wishlist-item');
+
+    wishlistItems.forEach(item => {
+        item.addEventListener('click', function (event) {
+            event.preventDefault();
+            
+            const productId = item.getAttribute('data-product-id');
+            const heartIcon = item.querySelector('.fa-heart');
+
+            // Toggle between the "wishlist-color-pink" class and remove it after a certain duration
+            heartIcon.classList.add('wishlist-color-pink');
+            setTimeout(() => {
+                heartIcon.classList.remove('wishlist-color-pink');
+            }, 1000); 
+        });
+    });
+});
+
+
+
+
+
+
+            
+            // fetch('/featuredproducts')
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         // Handle the JSON response here and update the #featured-products div
+            //         const productContainer = document.getElementById('featuredproducts');
+            //         console.log(featuredproducts);
+            //         // Loop through the data.products array and render the products on the page
+            //         data.products.forEach(product => {
+            //             // Create HTML elements to display the product
+            //             const productElement = document.createElement('div');
+            //             productElement.textContent = product.title;
+            //             // Append the product element to the container
+            //             productContainer.appendChild(productElement);
+            //         });
+            //     })
+            //     .catch(error => {
+            //         console.error('Error:', error);
+            //     });
+            // JavaScript code to send an AJAX GET request when clicking the <li> element
+// document.addEventListener('DOMContentLoaded', function () {
+//     const wishlistItems = document.querySelectorAll('.wishlist-item');
+
+//     wishlistItems.forEach(item => {
+//         item.addEventListener('click', function (event) {
+//             event.preventDefault();
+            
+//             const productId = item.getAttribute('data-product-id');
+//                  console.log(productId);
+//             // Send an AJAX GET request to the server to add the product to the wishlist
+//             fetch(`/add-to-wishlist/${productId}`, {
+//                 method: 'GET',
+//                 headers: {
+//                     'Accept': 'application/json',
+//                     'Content-Type': 'application/json'
+//                 }
+//             })
+//             .then(response => response.json())
+//             .then(data => {
+//                 if (data.success) {
+//                     // Handle success (e.g., update the button style)
+//                     console.log(data)
+//                     const heartIcon = item.querySelector('.fa-heart');
+//                     heartIcon.classList.add('active'); // Add a class to indicate the product is in the wishlist
+//                     alert(data.message);
+//                 } else {
+//                     // Handle errors (e.g., display an error message)
+//                     alert(data.message);
+//                 }
+//             })
+//             .catch(error => {
+//                 console.log(error);
+//             });
+//         });
+//     });
+// });
+
+  // JavaScript code to send an AJAX GET request when clicking the <li> element using XMLHttpRequest
+document.addEventListener('DOMContentLoaded', function () {
+    const wishlistItems = document.querySelectorAll('.wishlist-item');
+
+    wishlistItems.forEach(item => {
+        item.addEventListener('click', function (event) {
+            event.preventDefault();
+            
+            const productId = item.getAttribute('data-product-id');
+            const xhr = new XMLHttpRequest();
+
+            // Define the request
+            xhr.open('GET', `/add-to-wishlist/${productId}`, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('Accept', 'application/json');
+
+            // Set up the event listener for when the request is complete
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    const data = JSON.parse(xhr.responseText);
+                    if (data.success) {
+                        // Handle success (e.g., update the button style)
+                        const heartIcon = item.querySelector('.fa-heart');
+                        heartIcon.classList.add('active'); // Add a class to indicate the product is in the wishlist
+                        alert(data.message);
+                    } else {
+                        // Handle errors (e.g., display an error message)
+                        alert(data.message);
+                    }
+                } else {
+                    console.error('Error:', xhr.status);
+                }
+            };
+
+            // Send the request
+            xhr.send();
+        });
+    });
+});
+
+
+        </script>
+    </body>
