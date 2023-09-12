@@ -33,10 +33,8 @@ npm start
 Used:
 nodejs
 mongodb
+ajax
 with ejs formats
-
-
-Github link: https://github.com/Gadgets-Of-Galaxy/GOG_FINAL
 
 
 
