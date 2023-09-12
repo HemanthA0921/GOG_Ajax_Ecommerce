@@ -1,4 +1,4 @@
-# GOG_Final
+# GOG_Ajax_Ecommerce
 # E-commerce Gadgets of Galaxy Demo
 
 This is a sample application that demonstrates an E-commerce website using the nodejs. The application loads 
@@ -16,7 +16,7 @@ Clone the `GOG` repository using git:
 
 ```bash
 git clone https://github.com/Gadgets-Of-Galaxy/GOG_FINAL
-cd GOG
+cd GOG_Ajax_Ecommerce-main
 ```
 
 Install dependencies with this command:
